@@ -63,11 +63,7 @@ module.exports = function (RED) {
                     precision: 1,
                     temperature_command_topic,
                     mode_command_topic,
-                    fan_mode_command_topic,
-                    swing_mode_command_topic,
-                    swing_modes: ["on", "off"],
-                    modes: ["auto", "off", "cool", "heat", "dry", "fan_only"],
-                    fan_modes: ["auto", "low", "medium", "high"]
+                    modes: ["auto", "off", "cool", "heat", "dry"],
                 }, () => {
                     this.status({ fill: "green", shape: "ring", text: `node-red-contrib-ha-mqtt/common:publish.config` });
                 })

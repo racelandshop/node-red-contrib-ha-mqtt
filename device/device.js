@@ -9,10 +9,10 @@ module.exports = function (RED) {
         }
         config = config ? JSON.parse(config) : {}
         this.device_info = {
-            configuration_url: 'https://github.com/shaonianzhentan/node-red-contrib-ha-mqtt',
+            configuration_url: 'https://github.com/RACELAND-Automacao-Lda',
             identifiers: `ha-mqtt-${name}`,
-            manufacturer: "shaonianzhentan",
-            model: 'HA-MQTT',
+            manufacturer: "Raceland Automação",
+            model: 'NR-MQTT',
             sw_version: HomeAssistant.version,
             ...config,
             name
