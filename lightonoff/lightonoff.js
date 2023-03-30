@@ -1,4 +1,4 @@
-const HomeAssistant = require('../HomeAssistant')
+const HomeAssistant = require('../HomeAssistant2')
 
 module.exports = function (RED) {
     RED.nodes.registerType('ha-mqtt-lightonoff', function (cfg) {
