@@ -8,13 +8,16 @@ module.exports = function (RED) {
             this.server.register(this)
             const deviceNode = RED.nodes.getNode(cfg.device);
             const ha = new HomeAssistant(this, cfg, deviceNode.device_info)
-            const { command_topic, state_topic, set_position_topic, position_topic, tilt_command_topic, tilt_status_topic } = ha.config
+            const { command_topic, state_topic, set_position_topic, position_topic, tilt_command_topic, tilt_status_topic,  availability_topic } = ha.config
             const node = this
             node.on('input', function (msg) {
-                const { payload, attributes, position, tilt } = msg
+                const { payload, attributes, position, tilt, availability } = msg
                 try {
                     if (payload) {
                         ha.publish(state_topic, payload, RED._(`node-red-contrib-ha-mqtt/common:publish.state`))
+                    }
+                    if (availability) {
+                        ha.publish(availability_topic, availability, RED._(`node-red-contrib-ha-mqtt/common:publish.availability`))
                     }
                     if (attributes) {
                         ha.publish(ha.config.json_attr_t, attributes, RED._(`node-red-contrib-ha-mqtt/common:publish.attributes`))

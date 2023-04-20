@@ -30,6 +30,7 @@
     "publish": {
         "config": "Publish Configuration",
         "state": "Publish State",
+        "availability": "Availability",
         "attributes": "Publish Attributes",
         "current_temperature": "Publish Current Temperature",
         "temperature": "Publish Temperature",
