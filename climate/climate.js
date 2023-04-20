@@ -11,7 +11,8 @@ module.exports = function (RED) {
             const node = this
 
             const {
-                json_attr_t, mode_state_topic, mode_command_topic, power_command_topic,
+                json_attr_t, mode_state_topic, mode_command_topic, power_command_topic, 
+                availability_topic,
                 fan_mode_command_topic, fan_mode_state_topic,
                 swing_mode_command_topic, swing_mode_state_topic,
                 temperature_command_topic, temperature_state_topic,
@@ -19,10 +20,13 @@ module.exports = function (RED) {
             } = ha.config
 
             node.on('input', function (msg) {
-                const { payload, attributes, mode, temperature } = msg
+                const { payload, attributes, mode, temperature, availability } = msg
                 try {
                     if (payload) {
                         ha.publish(current_temperature_topic, payload, RED._(`node-red-contrib-ha-mqtt/common:publish.current_temperature`))
+                    }
+                    if (availability) {
+                        ha.publish(availability_topic, availability, RED._(`node-red-contrib-ha-mqtt/common:publish.availability`))
                     }
                     if (attributes) {
                         ha.publish(json_attr_t, attributes, RED._(`node-red-contrib-ha-mqtt/common:publish.attributes`))
@@ -56,6 +60,7 @@ module.exports = function (RED) {
             try {
                 ha.discovery({
                     state_topic: null,
+                    availability_topic,
                     power_command_topic,
                     mode_state_topic,
                     temperature_state_topic,

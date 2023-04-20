@@ -10,10 +10,13 @@ module.exports = function (RED) {
             const ha = new HomeAssistant(this, cfg, deviceNode.device_info)
             const node = this
             node.on('input', function (msg) {
-                const { payload, attributes } = msg
+                const { payload, attributes, availability } = msg
                 try {
                     if (payload) {
                         ha.publish(ha.config.state_topic, payload, RED._(`node-red-contrib-ha-mqtt/common:publish.state`))
+                    }
+                    if (availability) {
+                        ha.publish(availability_topic, availability, RED._(`node-red-contrib-ha-mqtt/common:publish.availability`))
                     }
                     if (attributes) {
                         ha.publish(ha.config.json_attr_t, attributes, RED._(`node-red-contrib-ha-mqtt/common:publish.attributes`))
@@ -24,7 +27,7 @@ module.exports = function (RED) {
             })
 
             try {
-                const discoveryConfig = {}
+                const discoveryConfig = {availability_topic}
                 ha.discovery(discoveryConfig, () => {
                     this.status({ fill: "green", shape: "ring", text: `node-red-contrib-ha-mqtt/common:publish.config` });
                 })

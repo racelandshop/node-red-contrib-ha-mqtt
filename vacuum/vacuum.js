@@ -10,13 +10,16 @@ module.exports = function (RED) {
             const ha = new HomeAssistant(this, cfg, deviceNode.device_info)
             const node = this
             node.on('input', function (msg) {
-                const { payload, attributes, battery_level, charging, cleaning, docked, error, fan_speed } = msg
+                const { payload, attributes, battery_level, charging, cleaning, docked, error, fan_speed, availability } = msg
                 try {
                     if (payload) {
                         ha.publish(ha.config.state_topic, payload, RED._(`node-red-contrib-ha-mqtt/common:publish.state`))
                     }
                     if (attributes) {
                         ha.publish(ha.config.json_attr_t, attributes, RED._(`node-red-contrib-ha-mqtt/common:publish.attributes`))
+                    }
+                    if (availability) {
+                        ha.publish(availability_topic, availability, RED._(`node-red-contrib-ha-mqtt/common:publish.availability`))
                     }
                     // if (battery_level) {
                     //     ha.publish(ha.config.battery_level_topic, battery_level, RED._(`node-red-contrib-ha-mqtt/common:publish.battery_level`))
@@ -47,7 +50,8 @@ module.exports = function (RED) {
                 // docked_topic,
                 // error_topic,
                 // fan_speed_topic,
-                set_fan_speed_topic, } = ha.config
+                availability_topic,
+                set_fan_speed_topic } = ha.config
             ha.subscribe(command_topic, (payload) => {
                 ha.send_payload(payload, 1, 3)
                 ha.publish(ha.config.state_topic, payload, RED._(`node-red-contrib-ha-mqtt/common:publish.state`))
