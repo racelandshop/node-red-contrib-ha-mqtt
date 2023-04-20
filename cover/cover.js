@@ -47,6 +47,7 @@ module.exports = function (RED) {
 
             try {
                 const discoveryConfig = {
+                    availability_topic,
                     command_topic,
                     set_position_topic,
                     position_topic,

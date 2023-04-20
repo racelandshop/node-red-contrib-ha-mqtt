@@ -30,9 +30,12 @@
             name: { value: "", required: true },
             config: { value: "" }
         },
-        inputs: 1,
+        inputs: 2,
         outputs: 3,
-        inputLabels: RED._("node-red-contrib-ha-mqtt/common:ioLabels.state"),
+        inputLabels: [
+            RED._("node-red-contrib-ha-mqtt/common:ioLabels.state"),
+            RED._("node-red-contrib-ha-mqtt/common:ioLabels.availability"),
+        ],
         outputLabels: [
             RED._("node-red-contrib-ha-mqtt/common:ioLabels.state"), 
             RED._("node-red-contrib-ha-mqtt/common:ioLabels.position"), 
