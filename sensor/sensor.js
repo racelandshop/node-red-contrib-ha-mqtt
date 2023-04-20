@@ -16,7 +16,7 @@ module.exports = function (RED) {
                         ha.publish(ha.config.state_topic, payload, RED._(`node-red-contrib-ha-mqtt/common:publish.state`))
                     }
                     if (availability) {
-                        ha.publish(availability_topic, availability, RED._(`node-red-contrib-ha-mqtt/common:publish.availability`))
+                        ha.publish(ha.availability_topic, availability, RED._(`node-red-contrib-ha-mqtt/common:publish.availability`))
                     }
                     if (attributes) {
                         ha.publish(ha.config.json_attr_t, attributes, RED._(`node-red-contrib-ha-mqtt/common:publish.attributes`))
@@ -29,7 +29,7 @@ module.exports = function (RED) {
             try {
                 const discoveryConfig = {
                     unit_of_measurement: cfg.unit_of_measurement,
-                availability_topic
+                    availability_topic
                 }
                 ha.discovery(discoveryConfig, () => {
                     this.status({ fill: "green", shape: "ring", text: `node-red-contrib-ha-mqtt/common:publish.config` });

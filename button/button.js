@@ -16,6 +16,7 @@ module.exports = function (RED) {
                     if (attributes) {
                         ha.publish(json_attr_t, attributes, RED._(`node-red-contrib-ha-mqtt/common:publish.attributes`))
                     }
+                    //DUVIDA
                     if (availability) {
                         ha.publish(availability_topic, availability, RED._(`node-red-contrib-ha-mqtt/common:publish.availability`))
                     }
