@@ -9,6 +9,8 @@ module.exports = function (RED) {
             const deviceNode = RED.nodes.getNode(cfg.device);
             const ha = new HomeAssistant(this, cfg, deviceNode.device_info)
             const node = this
+            const { command_topic, target_humidity_command_topic, target_humidity_state_topic,
+                mode_state_topic, mode_command_topic, availability_topic } = ha.config
             node.on('input', function (msg) {
                 const { payload, attributes, mode, target_humidity, availability } = msg
                 try {
@@ -31,8 +33,6 @@ module.exports = function (RED) {
                     node.status({ fill: "red", shape: "ring", text: ex });
                 }
             })
-            const { command_topic, target_humidity_command_topic, target_humidity_state_topic,
-                mode_state_topic, mode_command_topic, availability_topic } = ha.config
             ha.subscribe(command_topic, (payload) => {
                 ha.send_payload(payload, 1, 3)
                 ha.publish(ha.config.state_topic, payload, RED._(`node-red-contrib-ha-mqtt/common:publish.state`))

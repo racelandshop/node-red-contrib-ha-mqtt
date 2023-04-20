@@ -9,6 +9,7 @@ module.exports = function (RED) {
             const deviceNode = RED.nodes.getNode(cfg.device);
             const ha = new HomeAssistant(this, cfg, deviceNode.device_info)
             const node = this
+            const { availability_topic } = ha.config
             node.on('input', function (msg) {
                 const { payload, attributes, availability } = msg
                 try {
