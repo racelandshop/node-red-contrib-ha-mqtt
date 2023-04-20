@@ -19,7 +19,7 @@ module.exports = function (RED) {
                         ha.publish(ha.config.json_attr_t, attributes, RED._(`node-red-contrib-ha-mqtt/common:publish.attributes`))
                     }
                     if (availability) {
-                        ha.publish(ha.availability_topic, availability, RED._(`node-red-contrib-ha-mqtt/common:publish.availability`))
+                        ha.publish(availability_topic, availability, RED._(`node-red-contrib-ha-mqtt/common:publish.availability`))
                     }
                     // if (battery_level) {
                     //     ha.publish(ha.config.battery_level_topic, battery_level, RED._(`node-red-contrib-ha-mqtt/common:publish.battery_level`))
@@ -66,6 +66,7 @@ module.exports = function (RED) {
 
             try {
                 const discoveryConfig = {
+                    availability_topic,
                     command_topic,
                     send_command_topic,
                     // battery_level_topic,
